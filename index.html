@@ -13,6 +13,11 @@
         body {
             padding-top: 70px;
         }
+
+        #loggedUser {
+            color: white;
+        }
+
     </style>
 </head>
 <body>
@@ -20,11 +25,18 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/">Angular Todo</a>
-            </div>
+                <p id="loggedUser">
+                    <span class="glyphicon glyphicon-user"></span>  Logged in as :  <span ng-bind="user.name()"></span
+                </p>
+</div>
+            
+            
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/">Home</a></li>
                 <li><a href="#/todo">Todo</a></li>
-                <li><a href="#/accounts/register">Account</a></li>
+                <li><a href="#/accounts/register">Register</a></li>
+                <li><a href="#/accounts/login">Login</a></li>
+                <li><a href="#/accounts/logout">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -34,5 +46,6 @@
 <script src="js/app.js"></script>
 <script src="js/controller.js"></script>
 <script src="js/service.js"></script>
+<script src='js/directive.js'></script>
 </body>
 </html>
