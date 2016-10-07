@@ -46,14 +46,10 @@ angular.module('RouteControllers', [])
                 });
             }
         }
-<<<<<<< HEAD
 
         
     })
 
-=======
-    })
->>>>>>> 07b2a3f793a4d17404176b2fd70905d8d2cde6f3
     .controller('TodoController', function($scope, $location, TodoAPIService, store) {
         var URL = "https://morning-castle-91468.herokuapp.com/";
  
@@ -70,7 +66,7 @@ angular.module('RouteControllers', [])
         };
 
         $scope.deleteTodo = function(id) {
-            TodoAPIService.deleteTodo(url + "todo/" + id, $scope.username, $scope.authToken).then(function(results) {
+            TodoAPIService.deleteTodo(URL + "todo/" + id, $scope.username, $scope.authToken).then(function(results) {
                 console.log(results);
             }).catch(function(err) {
                 console.log(err);
@@ -100,7 +96,6 @@ angular.module('RouteControllers', [])
                 });
             }
         }
-<<<<<<< HEAD
      })
 
     .controller('EditTodoController', function($scope, $location, $routeParams, TodoAPIService, store) {
@@ -156,6 +151,5 @@ angular.module('RouteControllers', [])
         store.remove('authToken');
     });
 
-=======
-    });
->>>>>>> 07b2a3f793a4d17404176b2fd70905d8d2cde6f3
+
+
