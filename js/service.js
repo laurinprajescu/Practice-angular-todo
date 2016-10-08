@@ -25,9 +25,9 @@ angular.module('TodoService', [])
                 return $http.put(url, data, header);
             },
 
-            deleteTodo: function(url, data, token) {
-                header = "Authorization: JWT" + token;
-                return $http.delete(url, data, header);
+            deleteTodo: function(url, token) {
+                header = "Authorization: JWT " + token;
+                return $http.delete(url, token);
             }
 
             
