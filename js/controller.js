@@ -4,7 +4,7 @@ angular.module('RouteControllers', [])
         $scope.title = "Welcome To Angular Todo!";
     })
 
-    .controller('RegisterController', function($scope, UserAPIService, store) {
+    .controller('RegisterController', function($scope, UserAPIService, store, $location) {
  
         $scope.registrationUser = {};
         var URL = "https://morning-castle-91468.herokuapp.com/";
@@ -30,11 +30,14 @@ angular.module('RouteControllers', [])
                     $scope.data = results.data;
                     if ($scope.data.username == $scope.registrationUser.username && $scope.data.password == $scope.registrationUser.password){
                         alert("You have successfully registered to Angular Todo");
+
+                    
                     
                 UserAPIService.callAPI(URL + "accounts/api-token-auth/", $scope.data).then(function(results) {
                         $scope.token = results.data.token;
                         store.set('username', $scope.registrationUser.username);
                         store.set('authToken', $scope.token);
+
                            
                         }).catch(function(err) {
                             console.log(err);
@@ -43,9 +46,12 @@ angular.module('RouteControllers', [])
                 }).catch(function(err) {
                     console.log(err)
                 });
+                if (store.get('authToken')) {
+                $location.path("/todo");
+                } 
             }
-        }
 
+        }
         
     })
 
@@ -121,25 +127,27 @@ angular.module('RouteControllers', [])
     .controller('LoginController', function($scope, $location, UserService, store) {
         var url = "https://morning-castle-91468.herokuapp.com/";
 
-            
+        $scope.submitForm = function() {
+            if ($scope.loginForm.$isValid) {
+                $scope.loginUser.username = $scope.user.username;
+                $scope.loginUser.password = $scope.user.password;
 
-            $scope.submitForm = function() {
-                if ($scope.loginForm.$isValid) {
-                    $scope.loginUser.usename = $scope.user.username;
-                    $scope.loginUser.password = $scope.user.password;
-
-                    UserAPIService.callAPI(url + "accounts/api-token-auth", $scope.data).then(function(results) {
-                        $scope.token = results.data.token;
-                        store.set('username', $scope.loginUser.username);
-                        store.set('authToken', $scope.token);
-                        $location.path("/todo");
-                    }).catch(function(err) {
-                        console.log(err);
-                    })
-                }
+                UserAPIService.callAPI(url + "accounts/api-token-auth", $scope.data).then(function(results) {
+                    $scope.token = results.data.token;
+                    store.set('username', $scope.loginUser.username);
+                    store.set('authToken', $scope.token);
+                    $location.path("/todo");
+                }).catch(function(err) {
+                    console.log(err);
+                });
             }
-
+        };
     })
+    .controller('ShowUserController', function($scope, $http) {
+            $http.get("https://morning-castle-91468.herokuapp.com/").then(function(result) { 
+            $scope.currentUser = result.data;
+            })
+        })
 
     .controller('LogoutController', function(store) {
         store.remove('username');

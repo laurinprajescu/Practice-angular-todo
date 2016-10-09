@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
 <script type="text/javascript" src="bower_components/a0-angular-storage/dist/angular-storage.min.js"></script>
 
@@ -13,11 +13,6 @@
         body {
             padding-top: 70px;
         }
-
-        #loggedUser {
-            color: white;
-        }
-
     </style>
 </head>
 <body>
@@ -25,12 +20,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/">Angular Todo</a>
-                <p id="loggedUser">
-                    <span class="glyphicon glyphicon-user"></span>  Logged in as :  <span ng-bind="user.name()"></span
-                </p>
-</div>
-            
-            
+            </div>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#/">Home</a></li>
                 <li><a href="#/todo">Todo</a></li>
@@ -39,7 +29,13 @@
                 <li><a href="#/accounts/logout">Logout</a></li>
             </ul>
         </div>
+
+        <div ng-controller="ShowUserController">
+            {{ currentUser.username }}
+        </div>
+
     </nav>
+
     <div ng-view>
  
     </div>
