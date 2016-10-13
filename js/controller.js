@@ -1,7 +1,8 @@
 angular.module('RouteControllers', [])
 
-    .controller('HomeController', function($scope) {
+    .controller('HomeController', function($scope, store) {
         $scope.title = "Welcome To Angular Todo!";
+        $scope.username = store.get('username');
     })
 
     .controller('RegisterController', function($scope, UserAPIService, store, $location) {
@@ -46,12 +47,13 @@ angular.module('RouteControllers', [])
                 }).catch(function(err) {
                     console.log(err)
                 });
-                if (store.get('authToken')) {
-                $location.path("/todo");
-                } 
+                
             }
 
         }
+        if (store.get('authToken')) {
+                $location.path("/todo");
+                } 
         
     })
 
@@ -72,7 +74,7 @@ angular.module('RouteControllers', [])
             }).catch(function(err) {
                 console.log(err);
             });
-        };
+        }
 
         if (!store.get('authToken')) {
         $location.path("/accounts/register");
@@ -124,7 +126,7 @@ angular.module('RouteControllers', [])
 
 
 
-    .controller('LoginController', function($scope, $location, UserService, store) {
+    .controller('LoginController', function($scope, $location, UserAPIService, store) {
         var url = "https://morning-castle-91468.herokuapp.com/";
 
         $scope.submitForm = function() {
@@ -141,13 +143,13 @@ angular.module('RouteControllers', [])
                     console.log(err);
                 });
             }
-        };
+            if (store.get('authToken')) {
+                $location.path("/todo");
+                    }
+        }
+
     })
-    .controller('ShowUserController', function($scope, $http) {
-            $http.get("https://morning-castle-91468.herokuapp.com/").then(function(result) { 
-            $scope.currentUser = result.data;
-            })
-        })
+    
 
     .controller('LogoutController', function(store) {
         store.remove('username');
